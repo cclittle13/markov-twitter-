@@ -70,7 +70,8 @@ def make_text(chains):
 
         key = (key[1], word)
 
-
+    # if len(markov_chain) <= 140:
+    return markov_chain
     # print "TEXT of words:"
     # print markov_chain
 
@@ -78,7 +79,7 @@ def make_text(chains):
 
     # return chains
 
-    return markov_chain
+    # return markov_chain
 
 
 # def tweet(chains):
@@ -110,7 +111,7 @@ def tweet(markov_chain):
     else:
         pass
 
-    # return 
+    return 
 
     # response = raw_input("Type 'enter' to tweet again or 'q' to quit] > ")
    
@@ -124,22 +125,29 @@ def tweet(markov_chain):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Get the filenames from the user through a command line prompt, ex:
 # python markov.py green-eggs.txt shakespeare.txt
-filenames = sys.argv[1:]
+while True:
 
-# Open the files and turn them into one long string
-text = open_and_read_file(filenames)
+    response = raw_input("Continue typing 'enter' to tweet or 'q' to quit] > ")
 
-chain = make_chains(text)
+    if response != 'q':
 
-# Get a Markov chain
-markov_chain = make_text(chain)
+        filenames = sys.argv[1:]
 
-tweet(markov_chain)
+        # Open the files and turn them into one long string
+        text = open_and_read_file(filenames)
 
-response = raw_input("Type 'enter' to tweet again or 'q' to quit] > ")
-   
-while response != 'q':
-    tweet(markov_chain)
+        chain = make_chains(text)
+
+        # Get a Markov chain
+        markov_chain = make_text(chain)
+
+        #tweet(markov_chain)
+
+        tweet(markov_chain)
+    else:
+        break
+# else:
+#     pass
     # loop through functions for new markov_chain and then tweet 
 
 # Your task is to write a new function tweet, that will take chains as input
