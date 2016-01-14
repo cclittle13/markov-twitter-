@@ -49,14 +49,19 @@ def make_chains(text_string):
     # print chains
     return chains
 
-
 def make_text(chains):
+
+#Alternative for checking the length of the string option 2
+# def make_text(chains, limit=140):
     """Takes dictionary of markov chains; returns random text."""
     # print chains
     key = choice(chains.keys())
     markov_chain = key[0] + key[1]
 
+    # Alternative for checking the length of the string option 2 
+    # while key in chains and len(markov_chain) <= limit:
     while key in chains:
+
         # Keep looping until we have a key that isn't in the chains
         # (which would mean it was the end of our original text)
         #
@@ -66,8 +71,9 @@ def make_text(chains):
         word = choice(chains[key])
         # sum_words = sum([len(i) for i in words])
         # if sum_words <= 140:
+          
         markov_chain = markov_chain + " " + word 
-
+        
         key = (key[1], word)
 
     # if len(markov_chain) <= 140:
@@ -92,24 +98,23 @@ def tweet(markov_chain):
     # pseudocode:
         # call make_text function to find 140 random words from the dictionary chains
         # then prompt for user to tweet again or quit 
-
+        
+    # OPTION 1 for modifying the length of string to be less than 140 characters
+    markov_chain = markov_chain[:140]
     # print tweet
-    if len(markov_chain) <= 140:
 
-        api = twitter.Api(
-        consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
-        consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
-        access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
-        access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
+    api = twitter.Api(
+    consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
+    consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
+    access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
+    access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
 
-        print api.VerifyCredentials()
+    print api.VerifyCredentials()
 
-        status = api.PostUpdate(markov_chain)
+    status = api.PostUpdate(markov_chain)
 
-        print status.text
+    print status.text
 
-    else:
-        pass
 
     return 
 
@@ -127,7 +132,7 @@ def tweet(markov_chain):
 # python markov.py green-eggs.txt shakespeare.txt
 while True:
 
-    response = raw_input("Continue typing 'enter' to tweet or 'q' to quit] > ")
+    response = raw_input("Continue typing 'enter' to tweet or 'q' to quit > ")
 
     if response != 'q':
 
